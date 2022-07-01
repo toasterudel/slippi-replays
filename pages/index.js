@@ -1,18 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Navbar } from "react-bootstrap";
+import MyNavbar from "../components/MyNavbar";
+import SidebarMenu from "react-bootstrap-sidebar-menu";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
     <>
-      <Navbar
-        bg="dark"
-        variant="dark"
-        style={{ color: "white", padding: "10px" }}
-      >
-        Navigation
-      </Navbar>
+      <MyNavbar />
+      <SidebarMenu>
+        <SidebarMenu.Text>Hello</SidebarMenu.Text>
+      </SidebarMenu>
       <h1>Hello World</h1>
     </>
   );

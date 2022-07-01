@@ -1,3 +1,10 @@
+import MyNavbar from "../../components/MyNavbar";
+
 export default function Tournaments() {
-  return <h1>Tournaments</h1>;
+  return (
+    <>
+      <MyNavbar />
+      <h1>Tournaments</h1>
+    </>
+  );
 }
