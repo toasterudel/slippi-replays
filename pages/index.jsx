@@ -1,10 +1,17 @@
-import Head from "next/head";
-import Image from "next/image";
 import MyNavbar from "../components/MyNavbar";
 import SidebarMenu from "react-bootstrap-sidebar-menu";
-import styles from "../styles/Home.module.css";
+
+//  Firebase setup
+import { initializeApp } from "@firebase/app";
+import { getAuth } from "firebase/auth";
+import { firebaseConfig } from "../firebase/firebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 export default function Home() {
+
   return (
     <>
       <MyNavbar />

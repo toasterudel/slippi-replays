@@ -31,3 +31,5 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,react,firebase
+# Adding in line for .env, environment variables for Firebase
+.env
