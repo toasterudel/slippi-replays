@@ -1,6 +1,8 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
+import Login from "./Login";
 
-export default function MyNavbar() {
+export default function MyNavbar(props) {
+  const { auth } = props;
   return (
     <Navbar
       variant="light"
@@ -20,6 +22,9 @@ export default function MyNavbar() {
         </Nav.Link>
         <Nav.Link href="" style={{ color: "white" }}>
           Upload
+        </Nav.Link>
+        <Nav.Link>
+          <Login auth={auth} />
         </Nav.Link>
       </Container>
     </Navbar>

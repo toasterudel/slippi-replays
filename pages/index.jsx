@@ -3,7 +3,7 @@ import SidebarMenu from "react-bootstrap-sidebar-menu";
 
 //  Firebase setup
 import { initializeApp } from "@firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebaseConfig } from "../firebase/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      <MyNavbar />
+      <MyNavbar auth={auth} />
       <SidebarMenu>
         <SidebarMenu.Text>Hello</SidebarMenu.Text>
       </SidebarMenu>
