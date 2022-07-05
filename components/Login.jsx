@@ -25,7 +25,7 @@ export default function Login(props) {
                         <Button varaint="dark" onClick={() => {
                             //  Not sure why I have to do this instead of a simple href
                             handleHideModal();
-                            window.location.replace("./tournaments/TBH7");
+                            window.location.replace("./register");
                         }}>Create an Account</Button>
                     </Modal.Footer>
                 </Modal>
