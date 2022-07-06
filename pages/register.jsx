@@ -1,10 +1,13 @@
 import { useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 import MyNavbar from "../components/MyNavbar";
 import { signup, useAuth } from "../firebase/firebaseConfig";
 import { Button } from "react-bootstrap";
 
 export default function Signup() {
+    const router = useRouter();
+
     const emailRef = useRef();
     const passRef = useRef();
 
@@ -15,6 +18,8 @@ export default function Signup() {
         setLoading(true);
         try {
             await signup(emailRef.current.value, passRef.current.value);
+            //  If the above line throws an error it will never redirect to home 
+            router.push("./");
         } catch (e) {
             if (e.code.includes("auth/weak-password")) {
                 setSignUpErr("Password must be at least 6 characters")
@@ -33,11 +38,13 @@ export default function Signup() {
         <br />
 
         <div>
-            <input ref={emailRef} placeholder="Email" />
-            <br />
-            <input ref={passRef} placeholder="Password" type="password" />
-            <br />
-            <Button disabled={loading} variant="secondary" onClick={handleSignup}>Sign up</Button>
+            <form>
+                <input ref={emailRef} placeholder="Email" />
+                <br />
+                <input ref={passRef} placeholder="Password" type="password" />
+                <br />
+                <Button disabled={loading} variant="secondary" type="submit" onClick={handleSignup}>Sign up</Button>
+            </form>
         </div>
     </>)
 }

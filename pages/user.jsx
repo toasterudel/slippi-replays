@@ -9,7 +9,7 @@ export default function User() {
     return (
         <>
             <MyNavbar />
-            <h1>Hello</h1>
+            <h1>Hello {currentUser?.email}</h1>
         </>
     )
 }

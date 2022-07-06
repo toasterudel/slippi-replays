@@ -1,16 +1,22 @@
 import { useState, useRef } from "react"
 import { Button, Dropdown, Modal } from "react-bootstrap"
 import { signin, signout, useAuth } from "../firebase/firebaseConfig";
+import { useRouter } from "next/router";
 
 export default function Login() {
     const [showModal, setModal] = useState(false);
     const emailRef = useRef();
     const passRef = useRef();
+    const router = useRouter();
 
     let currentUser = useAuth();
 
     async function handleSignin() {
-        await signin(emailRef.current.value, passRef.current.value);
+        try {
+            await signin(emailRef.current.value, passRef.current.value);
+        } catch (e) {
+            alert(e);
+        }
     }
 
     const handleShowModal = () => { setModal(true) }
@@ -26,18 +32,19 @@ export default function Login() {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <input ref={emailRef} placeholder="Email" />
-                            <br />
-                            <input ref={passRef} placeholder="Password" type="password" />
-                            <br />
-                            <Button variant="secondary" onClick={handleSignin}>Login</Button>
+                            <form>
+                                <input ref={emailRef} placeholder="Email" />
+                                <br />
+                                <input ref={passRef} placeholder="Password" type="password" />
+                                <br />
+                                <Button variant="secondary" onClick={handleSignin} type="submit">Login</Button>
+                            </form>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button varaint="dark" onClick={() => {
-                            //  Not sure why I have to do this instead of a simple href
                             handleHideModal();
-                            window.location.replace("./register");
+                            router.push("./register");
                         }}>Create an Account</Button>
                     </Modal.Footer>
                 </Modal>
@@ -53,12 +60,13 @@ export default function Login() {
 
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => {
-                            window.location.replace("./user");
+                            router.push("./user");
                         }}>Profile</Dropdown.Item>
                         <Dropdown.Item onClick={async () => {
                             try {
                                 await signout();
-                                window.location.replace("./");
+                                router.push("./");
+                                handleHideModal();
                             } catch (e) {
                                 alert(e);
                             }
