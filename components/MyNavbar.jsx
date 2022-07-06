@@ -24,7 +24,7 @@ export default function MyNavbar(props) {
           Upload
         </Nav.Link>
         <Nav.Link>
-          <Login auth={auth} />
+          <Login />
         </Nav.Link>
       </Container>
     </Navbar>
