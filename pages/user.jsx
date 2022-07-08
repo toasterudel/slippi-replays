@@ -15,6 +15,8 @@ export default function User() {
             <MyNavbar />
             <h1>Hello {currentUser?.email}</h1>
             <br />
+            {!currentUser?.emailVerified && <p style={{ color: "red" }}>Please verify your email address</p>}
+
             <button onClick={handleUserInfo}>Toggle User info</button>
             <br />
             <p style={{ overflowWrap: "break-word" }}>{userInfo}</p>

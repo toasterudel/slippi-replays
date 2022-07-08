@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import { Button, Dropdown, Modal } from "react-bootstrap"
+import { Button, Dropdown, Modal, Spinner } from "react-bootstrap"
 import { signin, signout, useAuth } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
 
@@ -17,7 +17,12 @@ export default function Login() {
         try {
             await signin(emailRef.current.value, passRef.current.value);
         } catch (e) {
-            alert(e);
+            let errorStr = JSON.stringify(e);
+            if (errorStr.includes("wrong-password")) {
+                alert("Incorrect Password")
+            } else {
+                alert(e);
+            }
         }
         setLoginLoading(false);
     }
@@ -44,7 +49,14 @@ export default function Login() {
                                     onClick={handleSignin}
                                     type="submit"
                                     disabled={loginLoading}
-                                >Login</Button>
+                                >Login
+                                    {loginLoading && <Spinner
+                                        animation="border"
+                                        role="status"
+                                        size="sm"
+                                    />}
+                                </Button>
+
                             </form>
                         </div>
                     </Modal.Body>

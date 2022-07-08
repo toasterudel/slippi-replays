@@ -16,6 +16,19 @@ export default function Upload() {
     };
 
     if (currentUser) {
+
+        //  TODO: only allow upload if email verified
+        // if(currentUser?.emailVerified){
+        //     return (
+        //         <>
+        //             <MyNavbar />
+        //             <h1>Upload Page</h1>
+        //             <br />
+        //             <input type="file" accept=".slp" onChange={(event) => { setFileUpload(event.target.files) }} />
+        //             <button onClick={uploadFile}>Upload</button>
+        //         </>
+        //     )
+        // } else 
         return (
             <>
                 <MyNavbar />

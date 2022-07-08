@@ -16,7 +16,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, list } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 
@@ -58,9 +58,9 @@ export function useAuth() {
 }
 
 export async function upload(files) {
-  alert(JSON.stringify(files));
+  // alert(JSON.stringify(files));
   await Object.values(files).forEach(async (file) => {
-    const fileRef = ref(storage, `tournaments/${file.name}`);
+    const fileRef = ref(storage, `tournaments/tourney1/${file.name}`);
     try {
       await uploadBytes(fileRef, file);
       alert("File uploaded");
@@ -68,4 +68,14 @@ export async function upload(files) {
       alert(e);
     }
   });
+}
+
+export async function listTourneys() {
+  const listRef = ref(storage, `tournaments/tourney1`);
+  try {
+    const firstPage = await list(listRef, { maxResults: 10 });
+    alert(JSON.stringify(firstPage.items));
+  } catch (e) {
+    alert(e);
+  }
 }

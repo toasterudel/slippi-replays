@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import MyNavbar from "../components/MyNavbar";
 import { signup, useAuth } from "../firebase/firebaseConfig";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 
 export default function Signup() {
     const router = useRouter();
@@ -49,7 +49,14 @@ export default function Signup() {
                 <br />
                 <input ref={passRef} placeholder="Password" type="password" />
                 <br />
-                <Button disabled={loading} variant="secondary" type="submit" onClick={handleSignup}>Sign up</Button>
+                <Button disabled={loading} variant="secondary" type="submit" onClick={handleSignup}>Sign up
+                    {loading && <Spinner
+                        animation="border"
+                        role="status"
+                        size="sm"
+                    />
+                    }
+                </Button>
             </form>
         </div>
     </>)
