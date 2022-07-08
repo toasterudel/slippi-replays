@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 export default function Login() {
     const [showModal, setModal] = useState(false);
+    const [loginLoading, setLoginLoading] = useState(false);
     const emailRef = useRef();
     const passRef = useRef();
     const router = useRouter();
@@ -12,11 +13,13 @@ export default function Login() {
     let currentUser = useAuth();
 
     async function handleSignin() {
+        setLoginLoading(true);
         try {
             await signin(emailRef.current.value, passRef.current.value);
         } catch (e) {
             alert(e);
         }
+        setLoginLoading(false);
     }
 
     const handleShowModal = () => { setModal(true) }
@@ -37,7 +40,11 @@ export default function Login() {
                                 <br />
                                 <input ref={passRef} placeholder="Password" type="password" />
                                 <br />
-                                <Button variant="secondary" onClick={handleSignin} type="submit">Login</Button>
+                                <Button variant="secondary"
+                                    onClick={handleSignin}
+                                    type="submit"
+                                    disabled={loginLoading}
+                                >Login</Button>
                             </form>
                         </div>
                     </Modal.Body>

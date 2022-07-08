@@ -14,6 +14,8 @@ export default function Signup() {
     const [signUpErr, setSignUpErr] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const currentUser = useAuth();
+
     async function handleSignup() {
         setLoading(true);
         try {
@@ -29,6 +31,10 @@ export default function Signup() {
             }
         }
         setLoading(false);
+    }
+
+    if (currentUser) {
+        router.push("./user")
     }
 
     return (<>

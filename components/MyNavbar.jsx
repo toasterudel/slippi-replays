@@ -26,7 +26,7 @@ export default function MyNavbar() {
         <Link href="/tournaments" >
           <a style={{ color: "white", textDecoration: "none" }}>Tournaments</a>
         </Link>
-        {currentUser && <Link href="" style={{ color: "white" }}>
+        {currentUser && <Link href="/upload" style={{ color: "white" }}>
           <a style={{ color: "white", textDecoration: "none" }}>Upload</a>
         </Link>}
 

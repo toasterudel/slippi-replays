@@ -16,6 +16,8 @@ import {
   signOut,
 } from "firebase/auth";
 
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
 import { useEffect, useState } from "react";
 
 const firebaseConfig = {
@@ -29,6 +31,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const storage = getStorage();
 
 export function signup(email, pass) {
   return createUserWithEmailAndPassword(auth, email, pass);
@@ -52,4 +55,17 @@ export function useAuth() {
   }, []);
 
   return currentUser;
+}
+
+export async function upload(files) {
+  alert(JSON.stringify(files));
+  await Object.values(files).forEach(async (file) => {
+    const fileRef = ref(storage, `tournaments/${file.name}`);
+    try {
+      await uploadBytes(fileRef, file);
+      alert("File uploaded");
+    } catch (e) {
+      alert(e);
+    }
+  });
 }
