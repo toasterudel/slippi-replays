@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 
 import MyNavbar from "../components/MyNavbar";
-import { signup, useAuth } from "../firebase/firebaseConfig";
+import { signup, useAuth, sendEmailVer } from "../firebase/firebaseConfig";
 import { Button, Spinner } from "react-bootstrap";
 
 export default function Signup() {
@@ -15,13 +15,25 @@ export default function Signup() {
     const [loading, setLoading] = useState(false);
 
     const currentUser = useAuth();
+    const sendEmail = async (newUser) => {
+        if (newUser) {
+            try {
+                let msg = await sendEmailVer(newUser);
+                alert(`success: ${JSON.stringify(msg)}`);
+            } catch (e) {
+                alert(`error: ${JSON.stringify(e)}`);
+            }
+        }
+    }
 
-    async function handleSignup() {
+    const handleSignup = async () => {
         setLoading(true);
         try {
-            await signup(emailRef.current.value, passRef.current.value);
+            let newUser = await signup(emailRef.current.value, passRef.current.value);
             //  If the above line throws an error it will never redirect to home 
-            router.push("./");
+            await sendEmail(newUser);
+
+            router.push("./user");
         } catch (e) {
             if (e.code.includes("auth/weak-password")) {
                 setSignUpErr("Password must be at least 6 characters")

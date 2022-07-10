@@ -12,7 +12,7 @@ export default function Login() {
 
     let currentUser = useAuth();
 
-    async function handleSignin() {
+    const handleSignin = async () => {
         setLoginLoading(true);
         try {
             await signin(emailRef.current.value, passRef.current.value);

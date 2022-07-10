@@ -14,6 +14,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  sendEmailVerification,
 } from "firebase/auth";
 
 import { getStorage, ref, uploadBytes, list } from "firebase/storage";
@@ -33,16 +34,22 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const storage = getStorage();
 
-export function signup(email, pass) {
-  return createUserWithEmailAndPassword(auth, email, pass);
+export async function signup(email, pass) {
+  return await createUserWithEmailAndPassword(auth, email, pass);
 }
 
-export function signin(email, pass) {
-  return signInWithEmailAndPassword(auth, email, pass);
+export async function signin(email, pass) {
+  return await signInWithEmailAndPassword(auth, email, pass);
 }
 
-export function signout() {
-  return signOut(auth);
+export async function signout() {
+  return await signOut(auth);
+}
+
+export async function sendEmailVer(currentUser) {
+  if (currentUser && !currentUser.emailVerified) {
+    return await sendEmailVerification(currentUser);
+  } else return { error: "No User" };
 }
 
 // Custom hook
