@@ -19,9 +19,9 @@ export default function Signup() {
         if (newUser) {
             try {
                 let msg = await sendEmailVer(newUser);
-                alert(`success: ${JSON.stringify(msg)}`);
+                alert(`Sent email verification to: ${newUser.email} `);
             } catch (e) {
-                alert(`error: ${JSON.stringify(e)}`);
+                alert(`Error sending validation email: ${JSON.stringify(e)}`);
             }
         }
     }
@@ -29,9 +29,11 @@ export default function Signup() {
     const handleSignup = async () => {
         setLoading(true);
         try {
-            let newUser = await signup(emailRef.current.value, passRef.current.value);
-            //  If the above line throws an error it will never redirect to home 
-            await sendEmail(newUser);
+            const newUser = await signup(emailRef.current.value, passRef.current.value);
+            //  signup returns an object: { user: {uuid, email,etc}, providerId, tokenResponse}
+            //  the sendEmailVerification method only uses the user portion, destructuring below
+            const { user } = newUser;
+            await sendEmail(user);
 
             router.push("./user");
         } catch (e) {

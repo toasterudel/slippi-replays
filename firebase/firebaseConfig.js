@@ -49,7 +49,7 @@ export async function signout() {
 export async function sendEmailVer(currentUser) {
   if (currentUser && !currentUser.emailVerified) {
     return await sendEmailVerification(currentUser);
-  } else return { error: "No User" };
+  } else throw { error: "No User" };
 }
 
 // Custom hook
