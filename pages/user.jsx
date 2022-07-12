@@ -1,20 +1,18 @@
 import { useState } from "react";
 import MyNavbar from "../components/MyNavbar";
 import { Button } from "react-bootstrap";
-
-import { useAuth, sendEmailVer } from "../firebase/firebaseConfig";
-
+import { UserAuth } from "../firebase/userAuthContext";
 
 export default function User() {
     const [userInfo, setUserInfo] = useState();
 
-    let currentUser = useAuth();
+    const { user, signin, signout, sendEmailVer } = UserAuth();
 
-    const handleUserInfo = () => userInfo ? setUserInfo("") : setUserInfo(JSON.stringify(currentUser, null, 4));
+    const handleUserInfo = () => userInfo ? setUserInfo("") : setUserInfo(JSON.stringify(user, null, 4));
     const sendEmail = async () => {
-        if (currentUser) {
+        if (user) {
             try {
-                let msg = await sendEmailVer(currentUser);
+                let msg = await sendEmailVer(user);
                 alert(`success: ${JSON.stringify(msg)}`);
             } catch (e) {
                 alert(`error: ${JSON.stringify(e)}`);
@@ -25,11 +23,11 @@ export default function User() {
     return (
         <>
             <MyNavbar />
-            <h1>Hello {currentUser?.email}</h1>
+            <h1>Hello {user?.email}</h1>
             <br />
-            {!currentUser?.emailVerified && <>
+            {!user?.emailVerified && <>
                 <p style={{ color: "red" }}>Please verify your email address</p>
-                <Button onClick={sendEmail}>Send verification email</Button><br />
+                <Button onClick={sendEmail}>Resend verification email</Button><br />
 
             </>}
 

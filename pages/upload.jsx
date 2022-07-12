@@ -1,11 +1,12 @@
 import MyNavbar from "../components/MyNavbar";
 import { useAuth, upload } from "../firebase/firebaseConfig"
+import { UserAuth } from "../firebase/userAuthContext";
 
 import { useState } from "react";
 
 
 export default function Upload() {
-    const currentUser = useAuth();
+    const { user, upload } = UserAuth();
 
     const [fileUpload, setFileUpload] = useState(null);
 
@@ -15,10 +16,10 @@ export default function Upload() {
         setFileUpload(null);
     };
 
-    if (currentUser) {
+    if (user) {
 
         //  TODO: only allow upload if email verified
-        // if(currentUser?.emailVerified){
+        // if(user?.emailVerified){
         //     return (
         //         <>
         //             <MyNavbar />

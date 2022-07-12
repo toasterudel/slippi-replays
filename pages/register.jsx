@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 
 import MyNavbar from "../components/MyNavbar";
-import { signup, useAuth, sendEmailVer } from "../firebase/firebaseConfig";
+import { UserAuth } from "../firebase/userAuthContext";
 import { Button, Spinner } from "react-bootstrap";
 
 export default function Signup() {
@@ -14,7 +14,7 @@ export default function Signup() {
     const [signUpErr, setSignUpErr] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const currentUser = useAuth();
+    const { user, signup, sendEmailVer } = UserAuth();
     const sendEmail = async (newUser) => {
         if (newUser) {
             try {
@@ -47,7 +47,7 @@ export default function Signup() {
         setLoading(false);
     }
 
-    if (currentUser) {
+    if (user) {
         router.push("./user")
     }
 

@@ -1,3 +1,10 @@
+import { UserAuth } from "../firebase/userAuthContext";
+
 export default function Home() {
-  return <h1>Hello World!</h1>;
+
+  const { user } = UserAuth();
+  return <>
+    <h1>Hello World!</h1>
+    {user && <p>{JSON.stringify(user)}</p>}
+  </>;
 }

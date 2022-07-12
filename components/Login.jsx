@@ -1,7 +1,7 @@
 import { useState, useRef } from "react"
 import { Button, Dropdown, Modal, Spinner } from "react-bootstrap"
-import { signin, signout, useAuth } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
+import { UserAuth } from "../firebase/userAuthContext";
 
 export default function Login() {
     const [showModal, setModal] = useState(false);
@@ -10,12 +10,15 @@ export default function Login() {
     const passRef = useRef();
     const router = useRouter();
 
-    let currentUser = useAuth();
+    const { user, signin, signout } = UserAuth();
 
-    const handleSignin = async () => {
+
+    const handleSignin = async (e) => {
+        e.preventDefault();
         setLoginLoading(true);
         try {
             await signin(emailRef.current.value, passRef.current.value);
+            router.reload();
         } catch (e) {
             let errorStr = JSON.stringify(e);
             if (errorStr.includes("wrong-password")) {
@@ -30,7 +33,7 @@ export default function Login() {
     const handleShowModal = () => { setModal(true) }
     const handleHideModal = () => { setModal(false) }
 
-    if (!currentUser) {
+    if (!user) {
         return (
             <>
                 <Button variant="dark" onClick={handleShowModal}>Login / Register</Button>
@@ -74,7 +77,7 @@ export default function Login() {
             <>
                 <Dropdown>
                     <Dropdown.Toggle variant="success" >
-                        {currentUser?.email}
+                        {user?.email}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>

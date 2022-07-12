@@ -1,8 +1,8 @@
 import MyNavbar from "../../components/MyNavbar";
-
-import { listTourneys } from "../../firebase/firebaseConfig";
+import { UserAuth } from "../../firebase/userAuthContext";
 
 export default function Tournaments() {
+  const { listTourneys } = UserAuth();
   return (
     <>
       <MyNavbar />

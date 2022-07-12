@@ -1,11 +1,10 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import Link from "next/link";
-
-import { useAuth } from "../firebase/firebaseConfig";
+import { UserAuth } from "../firebase/userAuthContext";
 import Login from "./Login";
 
 export default function MyNavbar() {
-  let currentUser = useAuth();
+  const { user } = UserAuth();
 
   return (
     <Navbar
@@ -26,7 +25,7 @@ export default function MyNavbar() {
         <Link href="/tournaments" >
           <a style={{ color: "white", textDecoration: "none" }}>Tournaments</a>
         </Link>
-        {currentUser && <Link href="/upload" style={{ color: "white" }}>
+        {user && <Link href="/upload" style={{ color: "white" }}>
           <a style={{ color: "white", textDecoration: "none" }}>Upload</a>
         </Link>}
 
