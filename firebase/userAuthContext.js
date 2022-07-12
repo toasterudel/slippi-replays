@@ -8,14 +8,23 @@ import {
 } from "firebase/auth";
 
 import { getStorage, ref, uploadBytes, list } from "firebase/storage";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+} from "firebase/firestore";
 
-import { auth, storage } from "./firebaseConfig";
+import { auth, storage, db } from "./firebaseConfig";
 
 const UserContext = createContext();
 
 //  this is wrapped around our components in the _app.jsx file
 export const UserAuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const tourneyCollectionRef = collection(db, "tournaments");
 
   const signup = async (email, pass) => {
     return await createUserWithEmailAndPassword(auth, email, pass);
@@ -51,6 +60,18 @@ export const UserAuthContextProvider = ({ children }) => {
     }
   };
 
+  const getAllTourneys = async () => {
+    return await getDocs(tourneyCollectionRef);
+  };
+
+  const getTourneys = async (numTourneys) => {
+    return await query(
+      tourneyCollectionRef,
+      orderBy("date"),
+      limit(numTourneys)
+    );
+  };
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -72,6 +93,8 @@ export const UserAuthContextProvider = ({ children }) => {
         sendEmailVer,
         upload,
         listTourneys,
+        getTourneys,
+        getAllTourneys,
       }}
     >
       {children}
