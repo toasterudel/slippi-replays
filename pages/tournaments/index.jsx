@@ -8,8 +8,8 @@ export default function Tournaments() {
   const getTenTourneys = async () => {
     try {
       const data = await getTourneys(10);
-      // const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      alert(`SUCCESS: ${JSON.stringify(data)}`);
+      const parsedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      alert(`SUCCESS: ${JSON.stringify(parsedData)}`);
     } catch (e) {
       alert(`ERROR: ${e}`);
     }
@@ -30,7 +30,7 @@ export default function Tournaments() {
       <MyNavbar />
       <h1>Tournaments</h1>
       <br />
-      <button onClick={async () => { await getAll() }}>Get Tournaments</button>
+      <button onClick={async () => { await getTenTourneys() }}>Get Tournaments</button>
     </>
   );
 }

@@ -65,11 +65,13 @@ export const UserAuthContextProvider = ({ children }) => {
   };
 
   const getTourneys = async (numTourneys) => {
-    return await query(
+    const tourneyQuery = await query(
       tourneyCollectionRef,
-      orderBy("date"),
+      orderBy("date", "desc"),
       limit(numTourneys)
     );
+
+    return await getDocs(tourneyQuery);
   };
 
   useEffect(() => {
