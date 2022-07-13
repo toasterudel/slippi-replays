@@ -65,11 +65,16 @@ export const UserAuthContextProvider = ({ children }) => {
   };
 
   const getTourneys = async (numTourneys) => {
-    const tourneyQuery = await query(
-      tourneyCollectionRef,
-      orderBy("date", "desc"),
-      limit(numTourneys)
-    );
+    let tourneyQuery;
+    if (numTourneys) {
+      tourneyQuery = await query(
+        tourneyCollectionRef,
+        orderBy("date", "desc"),
+        limit(numTourneys)
+      );
+    } else {
+      tourneyQuery = await query(tourneyCollectionRef, orderBy("date", "desc"));
+    }
 
     return await getDocs(tourneyQuery);
   };
