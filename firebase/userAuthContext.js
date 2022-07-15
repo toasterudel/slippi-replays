@@ -46,7 +46,7 @@ export const UserAuthContextProvider = ({ children }) => {
       try {
         await uploadBytes(fileRef, file);
       } catch (e) {
-        alert(e);
+        throw e;
       }
     });
   };
@@ -82,7 +82,7 @@ export const UserAuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(JSON.stringify(currentUser));
+      //console.log(JSON.stringify(currentUser));
     });
     return () => {
       console.log("unsubbing");
