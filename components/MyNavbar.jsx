@@ -11,8 +11,8 @@ export default function MyNavbar() {
       variant="light"
       style={{ color: "white", backgroundColor: "#21BA45" }}
     >
-      <Container>
-        <Link href="/">
+      <Container style={{ color: "white", backgroundColor: "#21BA45" }}>
+        <Link href="/" >
           <a>
             <img
               alt=""
@@ -23,10 +23,10 @@ export default function MyNavbar() {
           </a>
         </Link>
         <Link href="/tournaments" >
-          <a style={{ color: "white", textDecoration: "none" }}>Tournaments</a>
+          <a style={{ color: "white", textDecoration: "none", backgroundColor: "#21BA45" }}>Tournaments</a>
         </Link>
-        {user && <Link href="/upload" style={{ color: "white" }}>
-          <a style={{ color: "white", textDecoration: "none" }}>Upload</a>
+        {user && <Link href="/upload" style={{ color: "white",  }}>
+          <a style={{ color: "white", textDecoration: "none", }}>Upload</a>
         </Link>}
 
         <Nav.Link>
