@@ -1,3 +1,4 @@
+import ReactDataGrid from "@inovua/reactdatagrid-community";
 import { doc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -55,6 +56,8 @@ export default function Tournaments() {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+
+        //return <ReactDataGrid idProperty={index} /> 
       })}
     </>
   );
